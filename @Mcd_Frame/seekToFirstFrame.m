@@ -11,6 +11,14 @@ function ret =seekToFirstFrame(fid,fSTART)
 disp('Seeking to first frame of YAML file.');
 %Find Where the Frames Begin
 k=1;
+
+if nargin==2;
+expression = strcat('^[ \t\r\n\v\f]*FrameNumber:\s',num2str(fSTART),'[ \t\r\n\v\f]*$');
+end
+if nargin==1;  %if no fSTART data
+    expression = ('^[ \t\r\n\v\f]*Frames:[ \t\r\n\v\f]*$');
+end
+
 while 1 %unless otherwise
      k=k+1;
      
@@ -26,11 +34,11 @@ while 1 %unless otherwise
      end
      
      %If we Found the line with the frames marker
-     expression = strcat('^[ \t\r\n\v\f]*FrameNumber:\s',num2str(fSTART),'[ \t\r\n\v\f]*$');
+     
      if regexp(tline,expression)
          disp('Found beginning of frames');
-         %tline = fgets(fid);
-         break;
+         if nargin==2;break;end
+         tline = fgets(fid);
          if regexp(tline,'^[ \t\r\n\v\f]*-[ \t\r\n\v\f]*$')
              ret=1;
              break;
