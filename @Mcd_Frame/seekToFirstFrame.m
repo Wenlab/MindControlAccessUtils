@@ -1,4 +1,4 @@
-function ret =seekToFirstFrame(fid)
+function ret =seekToFirstFrame(fid,fSTART)
 % This function seeks to the the first frame of a YAML data file produced
 % by the MindControl software.
 %
@@ -26,9 +26,11 @@ while 1 %unless otherwise
      end
      
      %If we Found the line with the frames marker
-     if regexp(tline,'^[ \t\r\n\v\f]*Frames:[ \t\r\n\v\f]*$')
+     expression = strcat('^[ \t\r\n\v\f]*FrameNumber:\s',num2str(fSTART),'[ \t\r\n\v\f]*$');
+     if regexp(tline,expression)
          disp('Found beginning of frames');
-         tline = fgets(fid); 
+         %tline = fgets(fid);
+         break;
          if regexp(tline,'^[ \t\r\n\v\f]*-[ \t\r\n\v\f]*$')
              ret=1;
              break;

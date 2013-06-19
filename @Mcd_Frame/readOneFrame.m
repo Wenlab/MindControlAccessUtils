@@ -10,7 +10,7 @@ function mcdf=readOneFrame(fid)
 % 2 November 2010
 
 % Read the line after the dash.. this should be a field
-tline = fgets(fid);
+tline = fgets(fid);  
 mcdf=Mcd_Frame;
 
 sElapsed=[];

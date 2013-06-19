@@ -27,9 +27,9 @@ classdef Mcd_Frame
 		        
     
     methods (Static)
-        mcdf_arr = yaml2matlab(fname);
+        mcdf_arr = yaml2matlab(fname, fSTART, fEND);
         mcdf = readOneFrame(fid);
-        success = seekToFirstFrame(fid);
+        success = seekToFirstFrame(fid, fSTART);
     end
         
 end
